@@ -79,7 +79,13 @@ window.onload = function() {
 		fetchUserInfo(query)
 	}
 		
-	
+	function main() {
+		var inputEl = $('input')[0]
+		inputEl.onkeypress = getUserQuery
+		var query = location.hash
+		fetchUserInfo(query)
+		fetchRepoInfo(query)
+	}
 
 
 	
