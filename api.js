@@ -2,8 +2,7 @@
 window.onload = function() {
 
 	var url = "https://api.github.com/users/",
-		apiToken = '?token=77497b06bfcb3d6df0ba1bb944de5f7c466da157'
-
+		apiToken = '?token=a25be8b1a2a72a3bd915a1de0dc16f7befb2cb51'
 
 	function putInto(property, element, responseData, image) {
 		if (image === 1) {
@@ -28,6 +27,7 @@ window.onload = function() {
 	function listRepos(repoArray) {
 		var ulElement = $('#repoList')[0]
 
+		ulElement.innerHTML = ''
 		repoArray.forEach(function(repo) {
 			repoName = repo.name 
 			var newRepo = document.createElement('li')
@@ -45,7 +45,6 @@ window.onload = function() {
 		var repoArray = responseData
 
 		listRepos(repoArray)
-
 	}
 
 	function fetchUserInfo(query) {
@@ -53,6 +52,7 @@ window.onload = function() {
 		url : url + query + apiToken,
 		success : userSuccess
 		}
+		console.log(userParams.url)
 		$.ajax(userParams)
 	}
 
@@ -75,6 +75,7 @@ window.onload = function() {
 
 	window.onhashchange = function() {
 		var query = location.hash
+		query = query.slice(1)
 		fetchRepoInfo(query)
 		fetchUserInfo(query)
 	}
@@ -82,12 +83,12 @@ window.onload = function() {
 	function main() {
 		var inputEl = $('input')[0]
 		inputEl.onkeypress = getUserQuery
-		var query = location.hash
-		fetchUserInfo(query)
-		fetchRepoInfo(query)
+		// var query = location.hash
+		// fetchUserInfo(query)
+		// fetchRepoInfo(query)
 	}
 
-
+	main()
 	
 
 
