@@ -1,9 +1,8 @@
 
 window.onload = function() {
 
-	var urlUser = "https://api.github.com/users/Excelthiorrr597?token=",
-		urlRepo = "https://api.github.com/users/Excelthiorrr597/repos?token=",
-		apiKey = '77497b06bfcb3d6df0ba1bb944de5f7c466da157'
+	var url = "https://api.github.com/users/",
+		apiToken = '?token=77497b06bfcb3d6df0ba1bb944de5f7c466da157'
 
 
 	function putInto(property, element, responseData, image) {
@@ -49,29 +48,45 @@ window.onload = function() {
 
 	}
 
-
-
-
-
-
-		
-
-
-
-	var userParams = {
-		url : urlUser + apiKey,
+	function fetchUserInfo(query) {
+		var userParams = {
+		url : url + query + apiToken,
 		success : userSuccess
-
+		}
+		$.ajax(userParams)
 	}
 
-	var repoParams = {
-		url : urlRepo + apiKey,
-		success : repoSuccess
-
+	function fetchRepoInfo(query) {
+		var repoParams = {
+			url : url + query + '/repos' + apiToken,
+			success : repoSuccess
+		}
+		$.ajax(repoParams)
 	}
 
-	$.ajax(userParams)
-	$.ajax(repoParams)
+	function getUserQuery(event) {
+		if (event.keyCode === 13) {
+			var inputEl = event.srcElement,
+				query = inputEl.value
+			inputEl.value = ''
+			location.hash = query
+		}
+	}
+
+	window.onhashchange = function() {
+		var query = location.hash
+		fetchRepoInfo(query)
+		fetchUserInfo(query)
+	}
+		
+	
+
+
+	
+
+
+
+	
 
 
 }
